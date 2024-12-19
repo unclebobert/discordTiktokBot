@@ -19,15 +19,15 @@ async def on_ready():
 
 @bot.slash_command(name='embed', guild_ids=[])
 async def embed(ctx: discord.ApplicationContext):
-    async for msg in ctx.history(limit=5):
+    async for msg in ctx.history():
         link = msg.content
-        if link.startswith('https://vt.tiktok.com/'):
+        if '.tiktok.com/' in link and 'www.' not in link:
             real = requests.head(link).headers['location']
             await ctx.respond(real, ephemeral=True)
             return
 
     await ctx.respond(
-        'No tiktok links found within the last 5 messages',
+        'No tiktok links found within the last 100 messages',
         ephemeral=True
     )
     return
@@ -35,15 +35,15 @@ async def embed(ctx: discord.ApplicationContext):
 
 @bot.slash_command(name='e', guild_ids=[325465792210665474, 1135514799556526171])
 async def embed_special(ctx: discord.ApplicationContext):
-    async for msg in ctx.history(limit=5):
+    async for msg in ctx.history():
         link = msg.content
-        if link.startswith('https://vt.tiktok.com/'):
+        if '.tiktok.com/' in link and 'www.' not in link:
             real = requests.head(link).headers['location']
             await ctx.respond(real, ephemeral=True)
             return
 
     await ctx.respond(
-        'No tiktok links found within the last 5 messages',
+        'No tiktok links found within the last 100 messages',
         ephemeral=True
     )
     return
